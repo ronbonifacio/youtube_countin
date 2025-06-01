@@ -9,9 +9,9 @@ function playClickSound() {
   const ctx = new (window.AudioContext || window.webkitAudioContext)();
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
-  osc.type = 'square';
+  osc.type = 'triangle';
   osc.frequency.value = 1000;
-  gain.gain.value = 0.1;
+  gain.gain.value = 0.3;
   osc.connect(gain);
   gain.connect(ctx.destination);
   osc.start();
