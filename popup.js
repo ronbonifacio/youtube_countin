@@ -79,7 +79,8 @@ function finalizeBPM() {
   tapTimes = [];
 }
 
-document.getElementById('start').addEventListener('click', async () => {
+// Reusable async function for count-in and video play
+async function runCountIn() {
   const bpm = parseInt(bpmInput.value, 10);
   const beats = parseInt(beatsInput.value, 10);
   const interval = 60000 / bpm;
@@ -90,7 +91,7 @@ document.getElementById('start').addEventListener('click', async () => {
     await new Promise(r => setTimeout(r, interval));
   }
 
-  display.textContent = "Go!";
+    display.textContent = "Go!";
 
   const tabs = await chrome.tabs.query({ url: "*://*.youtube.com/*" });
   if (tabs.length === 0) {
@@ -104,9 +105,54 @@ document.getElementById('start').addEventListener('click', async () => {
     target: { tabId },
     func: () => {
       const video = document.querySelector('video');
-      if (video && video.paused) video.play();
+      if (video) {
+        if (video.paused) video.play();
+      }
     }
   });
 
   display.textContent = "Playing YouTube video!";
+}
+
+
+
+// Start button triggers count-in + play
+document.getElementById('start').addEventListener('click', runCountIn);
+
+// Rewind button rewinds video, then restarts count-in + play
+document.getElementById('rewind-video').addEventListener('click', async () => {
+  const tabs = await chrome.tabs.query({ url: "*://*.youtube.com/*" });
+  if (tabs.length === 0) {
+    display.textContent = "No YouTube tab found to rewind.";
+    return;
+  }
+  const tabId = tabs[0].id;
+
+  // Pause and rewind video first
+  await chrome.scripting.executeScript({
+    target: { tabId },
+    func: () => {
+      const video = document.querySelector('video');
+      if (video) {
+        video.pause();
+        video.currentTime = 0;
+      }
+    }
+  });
+
+  display.textContent = "Video paused and rewound. Starting count-in...";
+
+  // Run the countdown, then play video
+  await runCountIn();
+
+  // After countdown, play the video
+  await chrome.scripting.executeScript({
+    target: { tabId },
+    func: () => {
+      const video = document.querySelector('video');
+      if (video) video.play();
+    }
+  });
+
+  display.textContent = "Playing video!";
 });
