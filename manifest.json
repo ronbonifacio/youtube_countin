@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Count-In",
+  "version": "1.0",
+  "description": "Counts in at a BPM, then unpauses a YouTube video",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["scripting", "tabs"],
+  "host_permissions": ["*://*.youtube.com/*"]
+}
