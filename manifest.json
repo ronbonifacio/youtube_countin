@@ -6,6 +6,6 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["scripting", "tabs"],
+  "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": ["*://*.youtube.com/*"]
 }
