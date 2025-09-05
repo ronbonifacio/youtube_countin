@@ -35,7 +35,7 @@ This extension was conceptualized and guided using **GPT-4 prompting**:
 ---
 
 ## Screenshot / Demo
-*(Include a GIF or screenshot showing the metronome counting in and the tap tempo button)*  
+![youtube_countin](https://github.com/user-attachments/assets/60b705ef-b628-42ba-8630-2be251097f88)
 
 ---
 
