@@ -34,7 +34,7 @@ This extension was conceptualized and guided using **GPT-4 prompting**:
 
 ---
 
-## Screenshot / Demo
+## Demo
 ![youtube_countin](https://github.com/user-attachments/assets/60b705ef-b628-42ba-8630-2be251097f88)
 
 ---
